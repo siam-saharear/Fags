@@ -1,0 +1,18 @@
+{% extends "tools/base.html" %}
+
+{% block page-title %}
+{{context.product_id}}
+{% endblock  %}
+
+{% block page-welcome %}
+    The product here is {{context.product_id}}
+{% endblock  %}
+
+{% block page-data %}
+    Product Name : {{context.product_id}}
+    <br>
+    Product Price : {{context.product_price}}
+    <br>
+    Product Contains Switch : {{context.product_switch}}
+    <br>
+{% endblock  %}

@@ -1,0 +1,31 @@
+{% extends "tools/base.html" %}
+
+{% block page-title %}
+    randomness
+{% endblock  %}
+
+{% block page-welcome %}
+    We present to you an array of 10 random numbers
+{% endblock  %}
+
+{% block page-data %}
+{{context}}
+
+<h1>
+    
+    <br>
+    <br>
+    <br>
+    This part of the page will take your input and will store that as an array 
+</h1>
+
+<form method="post", action="/rng/">
+    {% csrf_token %}
+    {{form.as_table}}
+    <br>
+    <button type="submit", name= "save">give me more</button>
+
+</form>
+
+
+{% endblock  %}

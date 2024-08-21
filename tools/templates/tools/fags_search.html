@@ -1,0 +1,20 @@
+{% extends "tools/base.html" %}
+{% block page-title %}
+    {{context}}
+{% endblock  %}
+
+{% block page-welcome %}
+    Product Name : {{context.product_id}}
+    <br>
+    Product Price : {{context.product_price}}
+    <br>
+    Product Contains Switch : {{context.product_switch}}
+    <br>
+{% endblock  %}
+
+{% block page-data %}
+<form method="post", action="/fags_search/">
+    {%csrf_token%}
+    {{form}}
+</form>
+{% endblock  %}
