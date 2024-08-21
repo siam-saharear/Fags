@@ -85,7 +85,7 @@ def rng(request,lower_limit=0, upper_limit=100, n=10):
     array = []
     form = Array_limits(request.POST or None)
     if request.method=="POST":
-        
+         
         if form.is_valid():
             lower_limit = form.cleaned_data["lower_limit"]
             upper_limit = form.cleaned_data["upper_limit"]
