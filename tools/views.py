@@ -51,8 +51,13 @@ def fags_search(response):
     
 
 def fags_add(response):
+    # returned from response.POST
+    # <QueryDict: {'csrfmiddlewaretoken': ['Fpaz2nzDO7mAc1KHGsOzUx1KmqIzWaqnat17QHSUYxkkYaaj23agqR8KQA2NAp9v'],
+    #              'fag': ['benson_regular'], 'price': ['18'], 'switch': ['on'], 'save': ['']}>
+
     message = "Enter fag name and price to create a new to database. Switch is optional."
     if response.method == "POST":
+        print(response.POST)
         form = Fags_add(response.POST)
         if form.is_valid():
             fag = form.cleaned_data["fag"].lower()
