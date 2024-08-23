@@ -16,7 +16,7 @@ class Fags(models.Model):
     def __str__(self):
         return self.fag   
 
-class Found(models.Model):
+class Found_in(models.Model):
     fags = models.ForeignKey(Fags, on_delete=models.CASCADE)
     city = models.CharField(max_length = 100)
     def __str__(self):
