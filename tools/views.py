@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from . import  functionality_0
-from .models import Rng, Fags  
+from .models import Rng, Fags, Found_in
 from .forms import Array_limits, Fags_search, Fags_add
 import random
 import math
@@ -25,12 +25,15 @@ def fags_home(response):
     # {{i}} being the i in loop which will run for len times  
 
 def individual_fags(response,fag):
-    product_id = Fags.objects.get(fag = fag).fag
-    product_id = product_id.replace("_", " ").title()
-    product_price = Fags.objects.get(fag = fag).price
-    product_switch = Fags.objects.get(fag = fag).switch
-    
-    return render(response, "tools/individual_fags.html", {"context":{"product_id":product_id, "product_price":product_price, "product_switch":product_switch}})
+    product = Fags.objects.get(fag = fag)
+    product_id = product.fag.replace("_", " ").title()
+    product_price = product.price
+    product_switch = product.switch
+    product_availabilty = product.objects.values_list("city", flat=True)
+    print(product_availabilty)
+    # <QuerySet [<Found_in: dhaka>]>
+
+    return render(response, "tools/individual_fags.html", {"context":{"product_id":product_id, "product_price":product_price, "product_switch":product_switch, "product_availability":product_availabilty}})
 
 def fags_search(response):
     form = Fags_search(response.POST or None)
