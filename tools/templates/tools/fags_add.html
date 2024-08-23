@@ -9,8 +9,9 @@
 
 
 {% block page-data %}
-    <form method= "post", action = "/fags_add/">
+    <form method= "post", action = "#">
         {%csrf_token%}
+
         {{form}}
         <button type="submit", name= "save">give me more</button>
     </form>    
