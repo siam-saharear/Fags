@@ -107,12 +107,7 @@ def rng(request,lower_limit=0, upper_limit=100, n=10):
                 array.append(random.randint(lower_limit, upper_limit))
             array_query = Rng.objects.all()
             found = False
-            # for i in range(len(array_query)):
-            #     current_query_array = Rng.objects.get(id = 5)
-            #     print(current_query_array)
-            #     if current_query_array == array:
-            #         found = True
-            # if found == False:
+
             l = Rng(array = array)
             l.save()
     return render(request, "tools/rng.html", {"context":array, "form" : form})    
