@@ -107,7 +107,8 @@ def rng(request,lower_limit=0, upper_limit=100, n=10):
                 array.append(random.randint(lower_limit, upper_limit))
             array_query = Rng.objects.all()
             found = False
-
+            print("dhon er bal")
+            
 
             l = Rng(array = array)
             l.save()
