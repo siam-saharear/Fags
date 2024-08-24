@@ -29,11 +29,15 @@ def individual_fags(response,fag):
     product_id = product.fag.replace("_", " ").title()
     product_price = product.price
     product_switch = product.switch
-    product_availabilty = product.objects.values_list("city", flat=True)
-    print(product_availabilty)
+    cities = []
+    product_availabilty = product.found_in_set
+    for i in range(len(product_availabilty.all())):
+        cities.append(product_availabilty.get(id=i+1).city)
+    
+    print(cities)
     # <QuerySet [<Found_in: dhaka>]>
 
-    return render(response, "tools/individual_fags.html", {"context":{"product_id":product_id, "product_price":product_price, "product_switch":product_switch, "product_availability":product_availabilty}})
+    return render(response, "tools/individual_fags.html", {"context":{"product_id":product_id, "product_price":product_price, "product_switch":product_switch},"cities":cities})
 
 def fags_search(response):
     form = Fags_search(response.POST or None)
@@ -57,33 +61,34 @@ def fags_add(response):
     # returned from response.POST
     # <QueryDict: {'csrfmiddlewaretoken': ['Fpaz2nzDO7mAc1KHGsOzUx1KmqIzWaqnat17QHSUYxkkYaaj23agqR8KQA2NAp9v'],
     #              'fag': ['benson_regular'], 'price': ['18'], 'switch': ['on'], 'save': ['']}>
-
+    all_cities = ["dhaka","chattogram","khulna","rajshahi","mymensingh","cumilla","barishal","rangpur"]
     message = "Enter fag name and price to create a new to database. Switch is optional."
     if response.method == "POST":
         print(response.POST)
         form = Fags_add(response.POST)
         if form.is_valid():
+            print(form.cleaned_data)
             fag = form.cleaned_data["fag"].lower()
             price = form.cleaned_data["price"]
             switch = form.cleaned_data["switch"]
-            print(fag, price, switch)
+            # print(fag, price, switch)
             try:
                 fetched_fag = Fags.objects.get(fag=fag).fag
             except:
                 fetched_fag = None
-            print(fetched_fag)
+            # print(fetched_fag)
             if fetched_fag==None or fetched_fag.lower()!=fag:
                 l= Fags(fag=fag,price=price,switch=switch)
                 l.save()
                 message = "added successfully"
             else:
                 message = "couldnt add. duplicate was found"
-            print(message)
+            # print(message)
         else:
             message = "Invalid form.Nothing was added."
     else:
         form = Fags_add(None)
-    return render(response, "tools/fags_add.html",{"context" : None, "form": form, "message" : message})
+    return render(response, "tools/fags_add.html",{"title" : "Add Fags", "form": form, "message" : message,"all_cities":all_cities})
     
 
 

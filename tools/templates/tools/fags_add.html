@@ -1,6 +1,6 @@
 {% extends "tools/base.html" %}
 {% block page-title %}
-    {{context}}
+    {{title}}
     {% endblock  %}
 
 {% block page-welcome %}
@@ -13,6 +13,14 @@
         {%csrf_token%}
 
         {{form}}
-        <button type="submit", name= "save">give me more</button>
+        <button type="submit", name= "save">Add fag</button>
+        <br>
+        <label for="city">Choose a city</label>
+        <input list="cities", id="city", name="city">
+        <datalist id="cities">
+        {% for city in all_cities %}
+        <option value={{city}}>
+        {% endfor %}
+        </datalist>
     </form>    
 {% endblock  %}

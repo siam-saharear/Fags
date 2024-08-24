@@ -15,5 +15,7 @@
     <br>
     Product Contains Switch : {{context.product_switch}}
     <br>
-    Can be found in : {{product_availability}}
+    Can be found in : {% for city in cities %}
+    {{city}}
+    {% endfor %}
 {% endblock  %}
