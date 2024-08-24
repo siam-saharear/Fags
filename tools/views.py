@@ -108,6 +108,7 @@ def rng(request,lower_limit=0, upper_limit=100, n=10):
             array_query = Rng.objects.all()
             found = False
 
+
             l = Rng(array = array)
             l.save()
     return render(request, "tools/rng.html", {"context":array, "form" : form})    
