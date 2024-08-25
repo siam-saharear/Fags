@@ -54,9 +54,7 @@ def fags_search(response):
             product_switch = Fags.objects.get(fag=fag).switch
     return render(response, "tools/fags_search.html", {"form":form, "context":{"product_id":product_id, "product_price":product_price, "product_switch":product_switch} })
         
-    
-    
-
+        
 def fags_add(response):
     # returned from response.POST
     # <QueryDict: {'csrfmiddlewaretoken': ['Fpaz2nzDO7mAc1KHGsOzUx1KmqIzWaqnat17QHSUYxkkYaaj23agqR8KQA2NAp9v'],
@@ -71,7 +69,9 @@ def fags_add(response):
             fag = form.cleaned_data["fag"].lower()
             price = form.cleaned_data["price"]
             switch = form.cleaned_data["switch"]
-            # print(fag, price, switch)
+            
+                # CITY SHIT
+
             try:
                 fetched_fag = Fags.objects.get(fag=fag).fag
             except:
@@ -83,6 +83,17 @@ def fags_add(response):
                 message = "added successfully"
             else:
                 message = "couldnt add. duplicate was found"
+            
+            post_city = response.POST.get("city")
+            existing_city_count = len(Fags.objects.get(fag=fag).found_in_set.all())
+            existing_cities = []
+            for i in range(1,existing_city_count+1):
+                existing_cities.append(Fags.objects.get(fag=fag).found_in_set.get(id=i).city)
+            print(existing_city_count,existing_cities)
+            if (post_city in all_cities) and (post_city not in existing_cities):
+                temp_add = Fags.objects.get(fag=fag).found_in_set.create(city=post_city)
+            else:
+                message += "city not added. either exists already or not valid." 
             # print(message)
         else:
             message = "Invalid form.Nothing was added."
@@ -107,9 +118,6 @@ def rng(request,lower_limit=0, upper_limit=100, n=10):
                 array.append(random.randint(lower_limit, upper_limit))
             array_query = Rng.objects.all()
             found = False
-            print("dhon er bal")
-            
-
             l = Rng(array = array)
             l.save()
     return render(request, "tools/rng.html", {"context":array, "form" : form})    
