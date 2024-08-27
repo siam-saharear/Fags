@@ -70,7 +70,6 @@ def fags_add(response):
             price = form.cleaned_data["price"]
             switch = form.cleaned_data["switch"]
             
-                # CITY SHIT
 
             try:
                 fetched_fag = Fags.objects.get(fag=fag).fag
@@ -81,6 +80,7 @@ def fags_add(response):
                 l= Fags(fag=fag,price=price,switch=switch)
                 l.save()
                 message = "added successfully"
+                # CITY SHIT
             else:
                 message = "couldnt add. duplicate was found"
             
