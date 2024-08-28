@@ -1,3 +1,16 @@
+def chunk_matcher(test_string, actual_string):
+    if len(test_string)<=len(actual_string):
+        final_blow = False
+        for i in range(len(test_string)):
+            if test_string[:len(test_string-i)] in actual_string:
+                final_blow = True
+                final_text = test_string[:len(test_string)-i]
+                break
+    return final_text    
+        
+    
+
+
 def similarity_percentage(actual_string, test_string):
     final_percentage = 0
     if actual_string.upper() == test_string.upper():
